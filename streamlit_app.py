@@ -15,9 +15,6 @@ name_on_order = st.text_input('Name on Smoothie')
 cnx = st.connection('snowflake')
 session = cnx.session()
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response.json())
-
 my_df = session.table("Smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 #st.dataframe(data = my_df, use_container_width=True)
 
@@ -47,3 +44,7 @@ if ingredients_list:
         session.sql(my_insert_stmt).collect()
         
         st.success('Your Smoothie is ordered, ' + name_on_order + '!' , icon="✅")
+
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#st.text(fruityvice_response.json())
+fv_df = st.daraframe(data=fruitvice_response.json(), use_container_width=True)
