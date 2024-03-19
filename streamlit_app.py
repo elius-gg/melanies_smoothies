@@ -15,8 +15,9 @@ name_on_order = st.text_input('Name on Smoothie')
 cnx = st.connection('snowflake')
 session = cnx.session()
 
-my_df = session.table("Smoothies.public.fruit_options").select(col('FRUIT_NAME'))
-#st.dataframe(data = my_df, use_container_width=True)
+my_df = session.table("Smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
+st.dataframe(data = my_df, use_container_width=True)
+st.stop()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 Ingredients'
